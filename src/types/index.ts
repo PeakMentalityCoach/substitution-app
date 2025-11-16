@@ -17,9 +17,8 @@ export interface PlayerPosition {
 }
 
 export interface GameState {
-  players: Player[];
-  currentLineup: PlayerPosition[]; // Current players on pitch
-  bench: string[]; // Player IDs on bench
+  lineup: Player[];   // players currently on the pitch
+  bench: Player[];    // players not on the pitch
 }
 
 export const POSITIONS = [
