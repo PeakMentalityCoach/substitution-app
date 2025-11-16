@@ -58,7 +58,7 @@ export function optimizePositions(
   // Convert assignments to PlayerPosition array
   const result: PlayerPosition[] = [];
 
-  assignments.forEach(([playerIdx, positionIdx]) => {
+  assignments.forEach(([playerIdx, positionIdx]: [number, number]) => {
     // Only include real players and real positions
     if (playerIdx < players.length && positionIdx < requiredPositions.length) {
       const player = players[playerIdx];
