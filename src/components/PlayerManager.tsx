@@ -241,3 +241,4 @@ export const PlayerManager: React.FC<PlayerManagerProps> = ({ players, onSave })
     </div>
   );
 };
+export default PlayerManager;
