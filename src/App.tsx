@@ -44,38 +44,22 @@ function App() {
       storageUtils.saveGameState(gameState);
     }
   }, [gameState]);
-
-  const handleSavePlayers = (updatedPlayers: Player[]) => {
-    setPlayers(updatedPlayers);
-  };
-
-  const handleSetLineup = (lineup: PlayerPosition[], bench: string[]) => {
-    const newGameState: GameState = {
-      players,
-      currentLineup: lineup,
-      bench
-    };
-    setGameState(newGameState);
-    setCurrentView('game');
-  };
-
-  const handleSubstitute = (newLineup: PlayerPosition[], newBench: string[]) => {
-    if (gameState) {
-      const updatedGameState: GameState = {
-        ...gameState,
-        currentLineup: newLineup,
-        bench: newBench
-      };
-      setGameState(updatedGameState);
+function optimizeLineup(players: Player[]) {
+    if (!players || !Array.isArray(players) || players.length === 0) {
+        console.error("optimizeLineup called with invalid players:", players);
+        return [];
     }
-  };
 
-  const handleResetGame = () => {
-    if (confirm('Are you sure you want to reset the game? This will clear the current lineup.')) {
-      setGameState(null);
-      storageUtils.saveGameState({ players: [], currentLineup: [], bench: [] });
-      setCurrentView('lineup');
-    }
+    // Simple stable algorithm: keep order, return first 11
+    const sorted = [...players].sort((a, b) => {
+        const posA = a.positions?.[0] ?? "";
+        const posB = b.positions?.[0] ?? "";
+        return posA.localeCompare(posB);
+    });
+
+    return sorted.slice(0, 11);
+}
+
   };
 
   const handleClearAllData = () => {
