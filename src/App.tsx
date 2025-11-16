@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PlayerManager from './components/PlayerManager';
-import StartingLineup from './components/StartingLineup';
-import SubstitutionPanel from './components/SubstitutionPanel';
+import { PlayerManager } from './components/PlayerManager';
+import { StartingLineup } from './components/StartingLineup';
+import { SubstitutionPanel } from './components/SubstitutionPanel';
 import PositionGrid from './components/PositionGrid';
 
 import * as storageUtils from './utils/storage';
@@ -177,22 +177,22 @@ function App() {
         {currentView === 'game' && gameState.lineup.length > 0 && (
           <div className="flex flex-col gap-6">
             <PositionGrid
-              players={gameState.lineup}
+              players={gameState.currentlineup}
               showRatings={true}
-              lineup={gameState.lineup}
+              lineup={gameState.currentlineup}
             />
 
             <SubstitutionPanel
               players={players}
-              lineup={gameState.lineup}
-              bench={gameState.bench}
+            players={gameState.currentLineup}
+          lineup={gameState.currentLineup}
               onSubstitute={handleSubstitute}
             />
           </div>
         )}
 
         {/* GAME — but lineup not set yet */}
-      {currentView === 'game' && gameState.lineup.length > 0 && (
+      currentView === 'game' && gameState.currentLineup.length > 0 &&
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mt-6 text-center">
             <h2 className="text-2xl font-bold mb-4">No Active Game</h2>
             <p className="text-gray-700 mb-6">
