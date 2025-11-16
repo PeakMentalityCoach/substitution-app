@@ -152,26 +152,13 @@ function optimizeLineup(players: Player[]) {
 
         {currentView === 'lineup' && (
           <StartingLineup players={players} onSetLineup={handleSetLineup} />
-        )}
-
-        {currentView === 'game' && gameState && (
-          <div className="space-y-6">
-            <PositionGrid
-              lineup={gameState.currentLineup}
-              players={players}
-              showRatings={true}
-            />
-            <SubstitutionPanel
-              lineup={gameState.currentLineup}
-              bench={gameState.bench}
-              players={players}
-              onSubstitute={handleSubstitute}
-            />
-          </div>
-        )}
-
+      {currentView === 'game' && (
+  <SubstitutionPanel
+    players={players}
+    lineup={gameState?.lineup || []}
+  />
+)}
         {currentView === 'game' && !gameState && (
-          <div className="p-8 text-center">
             <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-8 max-w-md mx-auto">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">No Active Game</h2>
               <p className="text-gray-600 mb-6">
