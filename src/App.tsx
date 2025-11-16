@@ -42,41 +42,6 @@ function App() {
     setPlayers(updated);
   }
 
- function handleSetLineup(selectedPlayers: Player[]) {
-  const lineup = selectedPlayers;
-  const bench = players.filter(p => !selectedPlayers.includes(p));
-
-  setGameState({
-    lineup,
-    bench,
-    substitutions: [],
-  });
-
-  setCurrentView('game');
-}
-
-function handleSubstitute(outPlayer: Player, inPlayer: Player) {
-  if (!gameState) return;
-
-  const newLineup = gameState.lineup
-    .filter(p => p.id !== outPlayer.id)
-    .concat(inPlayer);
-
-  const newBench = gameState.bench
-    .filter(p => p.id !== inPlayer.id)
-    .concat(outPlayer);
-
-  setGameState({
-    ...gameState,
-    lineup: newLineup,
-    bench: newBench,
-    substitutions: [
-      ...gameState.substitutions,
-      { out: outPlayer, in: inPlayer },
-    ],
-  });
-}
-
   function handleSubstitute(outPlayer: Player, inPlayer: Player) {
     if (!gameState) return;
 
