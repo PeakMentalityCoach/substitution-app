@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { PlayerManager } from './components/PlayerManager';
-import { StartingLineup } from './components/StartingLineup';
-import { SubstitutionPanel } from './components/SubstitutionPanel';
+import PlayerManager from './components/PlayerManager';
+import StartingLineup from './components/StartingLineup';
+import SubstitutionPanel from './components/SubstitutionPanel';
 import PositionGrid from './components/PositionGrid';
-
 import * as storageUtils from './utils/storage';
 import { Player, GameState } from './types';
 
@@ -152,7 +151,7 @@ function App() {
 
         {/* LINEUP */}
         {currentView === 'lineup' && (
-          <StartingLineup players={players} onSetLineup={handleSetLineup} />
+          (lineup: PlayerPosition[], bench: string[]) => void;
         )}
 
         {/* GAME — but only if lineup exists */}
@@ -164,12 +163,12 @@ function App() {
               lineup={gameState.currentlineup}
             />
 
-            <SubstitutionPanel
-              players={players}
-            players={gameState.currentLineup}
-          lineup={gameState.currentLineup}
-              onSubstitute={handleSubstitute}
-            />
+           <SubstitutionPanel
+    players={players}
+    lineup={gameState.lineup}
+    bench={gameState.bench}
+    onSubstitute={handleSubstitute}
+/>
           </div>
         )}
 
