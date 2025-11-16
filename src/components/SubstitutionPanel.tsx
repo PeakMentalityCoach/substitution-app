@@ -266,3 +266,4 @@ export const SubstitutionPanel: React.FC<SubstitutionPanelProps> = ({
     </div>
   );
 };
+export default PlayerManager;
