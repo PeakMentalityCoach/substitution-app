@@ -42,9 +42,14 @@ function App() {
     setPlayers(updated);
   }
 
-  function handleSetLineup(selected: Player[]) {
-    const lineup = optimizeLineup(selected);
-    const bench = players.filter((p) => !lineup.includes(p));
+ function handleSetLineup(selectedPlayers: Player[]) {
+  const bench = players.filter(p => !selectedPlayers.includes(p));
+
+  setGameState({
+    lineup: selectedPlayers,
+    bench: bench,
+  });
+}
 
     setGameState({
       lineup,
@@ -169,7 +174,7 @@ function App() {
         )}
 
         {/* GAME — but only if lineup exists */}
-        {currentView === 'game' && gameState && (
+        {currentView === 'game' && gameState.lineup.length > 0 && (
           <div className="flex flex-col gap-6">
             <PositionGrid
               players={gameState.lineup}
@@ -187,7 +192,7 @@ function App() {
         )}
 
         {/* GAME — but lineup not set yet */}
-        {currentView === 'game' && !gameState && (
+      {currentView === 'game' && gameState.lineup.length > 0 && (
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mt-6 text-center">
             <h2 className="text-2xl font-bold mb-4">No Active Game</h2>
             <p className="text-gray-700 mb-6">
