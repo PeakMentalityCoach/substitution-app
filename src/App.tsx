@@ -158,9 +158,9 @@ function App() {
         {currentView === 'game' && gameState.lineup.length > 0 && (
           <div className="flex flex-col gap-6">
             <PositionGrid
-              players={gameState.currentlineup}
+              players={gameState.lineup}
               showRatings={true}
-              lineup={gameState.currentlineup}
+              lineup={gameState.lineup}
             />
 
            <SubstitutionPanel
