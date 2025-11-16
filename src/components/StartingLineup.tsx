@@ -141,3 +141,4 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
     </div>
   );
 };
+export default PlayerManager;
