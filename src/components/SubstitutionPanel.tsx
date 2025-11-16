@@ -167,85 +167,87 @@ export const SubstitutionPanel: React.FC<SubstitutionPanelProps> = ({
 
       {/* Preview */}
       {showPreview && previewLineup.length > 0 && (
-        <div className="bg-white p-6 rounded-lg shadow-lg border-3 border-blue-500 mb-4">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">Preview: New Lineup</h3>
-
-          {/* Score comparison */}
-          <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
-            <div className="text-center">
-              <div className="text-sm text-gray-600">Current</div>
-              <div className="text-2xl font-bold text-gray-700">{currentScore}</div>
-            </div>
-            <div className="flex items-center justify-center">
-              <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </div>
-            <div className="text-center">
-              <div className="text-sm text-gray-600">New</div>
-              <div className={`text-2xl font-bold ${previewScore >= currentScore ? 'text-green-600' : 'text-red-600'}`}>
-                {previewScore}
-                {previewScore > currentScore && ' ↑'}
-                {previewScore < currentScore && ' ↓'}
+        <div className="mb-4 space-y-3">
+          <button
+            onClick={handleConfirmSubstitution}
+            className="w-full bg-white p-6 rounded-lg shadow-lg border-3 border-green-500 hover:border-green-600 hover:bg-green-50 transition-all cursor-pointer active:scale-[0.99] group"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-2xl font-bold text-gray-800">Preview: New Lineup</h3>
+              <div className="text-sm font-semibold text-green-600 group-hover:text-green-700">
+                Click to Confirm →
               </div>
             </div>
-          </div>
 
-          {/* Position changes */}
-          <div className="space-y-2 max-h-64 overflow-y-auto mb-6">
-            {previewLineup.map(assignment => {
-              const player = players.find(p => p.id === assignment.playerId);
-              const oldAssignment = lineup.find(l => l.playerId === assignment.playerId);
-              const isNew = assignment.playerId === playerIn;
-              const positionChanged = oldAssignment && oldAssignment.position !== assignment.position;
+            {/* Score comparison */}
+            <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="text-center">
+                <div className="text-sm text-gray-600">Current</div>
+                <div className="text-2xl font-bold text-gray-700">{currentScore}</div>
+              </div>
+              <div className="flex items-center justify-center">
+                <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+              <div className="text-center">
+                <div className="text-sm text-gray-600">New</div>
+                <div className={`text-2xl font-bold ${previewScore >= currentScore ? 'text-green-600' : 'text-red-600'}`}>
+                  {previewScore}
+                  {previewScore > currentScore && ' ↑'}
+                  {previewScore < currentScore && ' ↓'}
+                </div>
+              </div>
+            </div>
 
-              return (
-                <div
-                  key={assignment.playerId}
-                  className={`
-                    p-3 rounded-lg border-2
-                    ${isNew ? 'bg-green-50 border-green-500' :
-                      positionChanged ? 'bg-yellow-50 border-yellow-500' :
-                      'bg-gray-50 border-gray-300'}
-                  `}
-                >
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span className="font-bold">#{player?.jerseyNumber} {player?.name}</span>
-                      {isNew && <span className="ml-2 text-xs bg-green-600 text-white px-2 py-0.5 rounded">NEW</span>}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {positionChanged && oldAssignment && (
-                        <>
-                          <span className="text-gray-500 line-through">{oldAssignment.position}</span>
-                          <span className="text-gray-400">→</span>
-                        </>
-                      )}
-                      <span className={`font-bold ${isNew || positionChanged ? 'text-blue-600' : 'text-gray-700'}`}>
-                        {assignment.position}
-                      </span>
+            {/* Position changes */}
+            <div className="space-y-2 max-h-64 overflow-y-auto mb-6">
+              {previewLineup.map(assignment => {
+                const player = players.find(p => p.id === assignment.playerId);
+                const oldAssignment = lineup.find(l => l.playerId === assignment.playerId);
+                const isNew = assignment.playerId === playerIn;
+                const positionChanged = oldAssignment && oldAssignment.position !== assignment.position;
+
+                return (
+                  <div
+                    key={assignment.playerId}
+                    className={`
+                      p-3 rounded-lg border-2
+                      ${isNew ? 'bg-green-50 border-green-500' :
+                        positionChanged ? 'bg-yellow-50 border-yellow-500' :
+                        'bg-gray-50 border-gray-300'}
+                    `}
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="font-bold">#{player?.jerseyNumber} {player?.name}</span>
+                        {isNew && <span className="ml-2 text-xs bg-green-600 text-white px-2 py-0.5 rounded">NEW</span>}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {positionChanged && oldAssignment && (
+                          <>
+                            <span className="text-gray-500 line-through">{oldAssignment.position}</span>
+                            <span className="text-gray-400">→</span>
+                          </>
+                        )}
+                        <span className={`font-bold ${isNew || positionChanged ? 'text-blue-600' : 'text-gray-700'}`}>
+                          {assignment.position}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </button>
 
-          {/* Action buttons */}
-          <div className="flex gap-4">
-            <button
-              onClick={handleConfirmSubstitution}
-              className="flex-1 bg-green-600 text-white py-4 rounded-lg text-xl font-bold hover:bg-green-700 active:bg-green-800 transition-colors"
-            >
-              Confirm Substitution
-            </button>
-            <button
-              onClick={handleCancel}
-              className="flex-1 bg-gray-500 text-white py-4 rounded-lg text-xl font-bold hover:bg-gray-600 active:bg-gray-700 transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
+          {/* Cancel button separate */}
+          <button
+            onClick={handleCancel}
+            className="w-full bg-gray-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-gray-600 active:bg-gray-700 transition-colors"
+          >
+            Cancel
+          </button>
         </div>
       )}
 

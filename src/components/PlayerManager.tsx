@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Player, PositionRating, POSITIONS } from '../types';
+import { Player, POSITIONS } from '../types';
 
 interface PlayerManagerProps {
   players: Player[];
