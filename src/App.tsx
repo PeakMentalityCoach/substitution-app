@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Player, PlayerPosition, GameState } from './types';
 import { storageUtils } from './utils/storage';
 import { PlayerManager } from './components/PlayerManager';
