@@ -137,3 +137,4 @@ export const PositionGrid: React.FC<PositionGridProps> = ({ lineup, players, sho
     </div>
   );
 };
+export default PlayerManager;
