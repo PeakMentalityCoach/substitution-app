@@ -1,14 +1,14 @@
 export interface PositionRating {
   position: string;
-  rating: number; // 1-10
+  rating: number; // 1–10
 }
 
 export interface Player {
   id: string;
   name: string;
   jerseyNumber: number;
-  positions: string[]; // Positions they can play
-  ratings: PositionRating[]; // Optional ratings per position
+  positions: string[];
+  ratings: PositionRating[];
 }
 
 export interface PlayerPosition {
@@ -17,23 +17,27 @@ export interface PlayerPosition {
 }
 
 export interface GameState {
-  lineup: Player[];   // players currently on the pitch
-  bench: Player[];    // players not on the pitch
+  lineup: PlayerPosition[];   // players assigned to positions
+  bench: string[];            // IDs of players on bench
+  substitutions: {
+    out: Player;
+    in: Player;
+  }[];
 }
 
 export const POSITIONS = [
-  'GK',    // Goalkeeper
-  'LB',    // Left Back
-  'CB1',   // Center Back 1
-  'CB2',   // Center Back 2
-  'RB',    // Right Back
-  'LM',    // Left Midfielder
-  'CM1',   // Center Midfielder 1
-  'CM2',   // Center Midfielder 2
-  'RM',    // Right Midfielder
-  'LW',    // Left Winger
-  'ST',    // Striker
-  'RW',    // Right Winger
+  'GK',
+  'LB',
+  'CB1',
+  'CB2',
+  'RB',
+  'LM',
+  'CM1',
+  'CM2',
+  'RM',
+  'LW',
+  'ST',
+  'RW',
 ] as const;
 
 export type Position = typeof POSITIONS[number];
