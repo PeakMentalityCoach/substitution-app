@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PlayerManager } from './components/PlayerManager';
 import { StartingLineup } from './components/StartingLineup';
 import { SubstitutionPanel } from './components/SubstitutionPanel';
 import { PositionGrid } from './components/PositionGrid';
+import { GameTab } from './components/GameTab';
+
 import * as storageUtils from './utils/storage';
 import { Player, GameState } from './types';
 
