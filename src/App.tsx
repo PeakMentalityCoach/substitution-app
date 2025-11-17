@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import { PlayerManager } from './components/PlayerManager';
 import { StartingLineup } from './components/StartingLineup';
 import { SubstitutionPanel } from './components/SubstitutionPanel';
@@ -59,7 +60,7 @@ function App() {
       lineup: newLineup,
       bench: newBench,
       substitutions: [
-        ...gameState.substitutions,
+        ...(gameState.substitutions ?? []),
         { out: outPlayer, in: inPlayer },
       ],
     });
@@ -153,11 +154,11 @@ function App() {
 
         {/* LINEUP */}
         {currentView === 'lineup' && (
-          (lineup: PlayerPosition[], bench: string[]) => void;
+          <StartingLineup players={players} onSetGameState={setGameState} />
         )}
 
-        {/* GAME — but only if lineup exists */}
-        {currentView === 'game' && gameState.lineup.length > 0 && (
+        {/* GAME */}
+        {currentView === 'game' && gameState && gameState.lineup.length > 0 && (
           <div className="flex flex-col gap-6">
             <PositionGrid
               players={gameState.lineup}
@@ -165,17 +166,17 @@ function App() {
               lineup={gameState.lineup}
             />
 
-           <SubstitutionPanel
-    players={players}
-    lineup={gameState.lineup}
-    bench={gameState.bench}
-    onSubstitute={handleSubstitute}
-/>
+            <SubstitutionPanel
+              players={players}
+              lineup={gameState.lineup}
+              bench={gameState.bench}
+              onSubstitute={handleSubstitute}
+            />
           </div>
         )}
 
-        {/* GAME — but lineup not set yet */}
-      currentView === 'game' && gameState.currentLineup.length > 0 &&
+        {/* If lineup is not set */}
+        {currentView === 'game' && gameState?.lineup.length === 0 && (
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mt-6 text-center">
             <h2 className="text-2xl font-bold mb-4">No Active Game</h2>
             <p className="text-gray-700 mb-6">
