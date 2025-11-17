@@ -33,7 +33,6 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
     const selectedPlayerObjects = players.filter(p => selectedPlayers.has(p.id));
     const optimizedLineup = optimizePositions(selectedPlayerObjects, [...POSITIONS]);
 
-    // Players not in lineup go to bench
     const bench = players
       .filter(p => !selectedPlayers.has(p.id))
       .map(p => p.id);
@@ -75,7 +74,6 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
         </div>
       </div>
 
-      {/* Player selection grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {players.map(player => (
           <div
@@ -90,7 +88,7 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
             `}
           >
             <div className="flex items-center gap-3">
-              {/* Checkbox */}
+
               <div className={`
                 w-8 h-8 rounded-full border-3 flex items-center justify-center
                 ${selectedPlayers.has(player.id)
@@ -105,7 +103,6 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
                 )}
               </div>
 
-              {/* Player info */}
               <div className="flex-1">
                 <h3 className="text-lg font-bold text-gray-800">
                   #{player.jerseyNumber} {player.name}
@@ -117,12 +114,12 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
                   Avg rating: {(player.ratings.reduce((sum, r) => sum + r.rating, 0) / player.ratings.length).toFixed(1)}
                 </p>
               </div>
+
             </div>
           </div>
         ))}
       </div>
 
-      {/* Action button */}
       <div className="sticky bottom-0 bg-white p-4 border-t-4 border-gray-200 shadow-lg">
         <button
           onClick={handleOptimizeAndSet}
@@ -141,4 +138,5 @@ export const StartingLineup: React.FC<StartingLineupProps> = ({ players, onSetLi
     </div>
   );
 };
-export default PlayerManager;
+
+export { StartingLineup };
